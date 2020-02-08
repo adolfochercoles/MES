@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ingrediente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idReceta" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Linea">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlanta" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idLinea" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Receta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Ingrediente_Receta">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="1" />
+          <End Role="Ingrediente" Type="Self.Ingrediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente">
+              <PropertyRef Name="idReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Linea_Planta">
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="Linea" Type="Self.Linea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Linea">
+              <PropertyRef Name="idPlanta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Linea">
+          <End Role="Linea" Type="Self.Linea" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Linea">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idLinea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receta_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Receta" Type="Self.Receta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Receta">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MESModelStoreContainer">
+          <EntitySet Name="Ingrediente" EntityType="Self.Ingrediente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Linea" EntityType="Self.Linea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planta" EntityType="Self.Planta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receta" EntityType="Self.Receta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ingrediente_Receta" Association="Self.FK_Ingrediente_Receta">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="Ingrediente" EntitySet="Ingrediente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Linea_Planta" Association="Self.FK_Linea_Planta">
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="Linea" EntitySet="Linea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Linea" Association="Self.FK_Producto_Linea">
+            <End Role="Linea" EntitySet="Linea" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receta_Producto" Association="Self.FK_Receta_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Receta" EntitySet="Receta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ingrediente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idReceta" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Receta" Relationship="Self.FK_Ingrediente_Receta" FromRole="Ingrediente" ToRole="Receta" />
+        </EntityType>
+        <EntityType Name="Linea">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlanta" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planta" Relationship="Self.FK_Linea_Planta" FromRole="Linea" ToRole="Planta" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Linea" FromRole="Linea" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Planta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Linea" Relationship="Self.FK_Linea_Planta" FromRole="Planta" ToRole="Linea" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idLinea" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Linea" Relationship="Self.FK_Producto_Linea" FromRole="Producto" ToRole="Linea" />
+          <NavigationProperty Name="Receta" Relationship="Self.FK_Receta_Producto" FromRole="Producto" ToRole="Receta" />
+        </EntityType>
+        <EntityType Name="Receta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ingrediente" Relationship="Self.FK_Ingrediente_Receta" FromRole="Receta" ToRole="Ingrediente" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Receta_Producto" FromRole="Receta" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Ingrediente_Receta">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="1" />
+          <End Role="Ingrediente" Type="Self.Ingrediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente">
+              <PropertyRef Name="idReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Linea_Planta">
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="Linea" Type="Self.Linea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Linea">
+              <PropertyRef Name="idPlanta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Linea">
+          <End Role="Linea" Type="Self.Linea" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Linea">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idLinea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receta_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Receta" Type="Self.Receta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Receta">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MESEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ingrediente" EntityType="Self.Ingrediente" />
+          <EntitySet Name="Linea" EntityType="Self.Linea" />
+          <EntitySet Name="Planta" EntityType="Self.Planta" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Receta" EntityType="Self.Receta" />
+          <AssociationSet Name="FK_Ingrediente_Receta" Association="Self.FK_Ingrediente_Receta">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="Ingrediente" EntitySet="Ingrediente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Linea_Planta" Association="Self.FK_Linea_Planta">
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="Linea" EntitySet="Linea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Linea" Association="Self.FK_Producto_Linea">
+            <End Role="Linea" EntitySet="Linea" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receta_Producto" Association="Self.FK_Receta_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Receta" EntitySet="Receta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MESModelStoreContainer" CdmEntityContainer="MESEntities">
+          <EntitySetMapping Name="Ingrediente">
+            <EntityTypeMapping TypeName="MESModel.Ingrediente">
+              <MappingFragment StoreEntitySet="Ingrediente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idReceta" ColumnName="idReceta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Linea">
+            <EntityTypeMapping TypeName="MESModel.Linea">
+              <MappingFragment StoreEntitySet="Linea">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idPlanta" ColumnName="idPlanta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planta">
+            <EntityTypeMapping TypeName="MESModel.Planta">
+              <MappingFragment StoreEntitySet="Planta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="MESModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idLinea" ColumnName="idLinea" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receta">
+            <EntityTypeMapping TypeName="MESModel.Receta">
+              <MappingFragment StoreEntitySet="Receta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

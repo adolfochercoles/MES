@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a73db2a2b7a64984b9c6314a820e3266" Name="Diagram1">
+        <EntityTypeShape EntityType="MESModel.Ingrediente" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MESModel.Linea" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MESModel.Planta" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MESModel.Producto" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MESModel.Receta" Width="1.5" PointX="7.5" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="MESModel.FK_Ingrediente_Receta" ManuallyRouted="false" />
+        <AssociationConnector Association="MESModel.FK_Linea_Planta" ManuallyRouted="false" />
+        <AssociationConnector Association="MESModel.FK_Producto_Linea" ManuallyRouted="false" />
+        <AssociationConnector Association="MESModel.FK_Receta_Producto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
